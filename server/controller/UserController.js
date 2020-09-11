@@ -44,6 +44,7 @@ class UserController {
                     let access_token = generateToken(payload)
                     res.status(200).json({
                         message: 'login success',
+                        email: data.email,
                         access_token
                     })
                 }

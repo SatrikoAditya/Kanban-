@@ -53,7 +53,33 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'category is required'
         }
       }
-    } 
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'userId is required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'userId is required'
+        }
+      }
+    },
+    userEmail: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'userEmail is required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'userEmail is required'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Kanban',

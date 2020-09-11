@@ -4,8 +4,9 @@ class KanbanController {
     static create(req, res, next) {
         let {title, description, category} = req.body
         const userId = req.loginUser.id
+        const userEmail = req.loginUser.email
         Kanban.create({
-            title, description, category, userId
+            title, description, category, userId, userEmail
         })
         .then(data => {
             res.status(201).json({
