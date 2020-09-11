@@ -24,6 +24,12 @@
     }
   ```
 
+  * **Headers**
+
+  ```json
+  access_token: "string"
+  ```
+
 * **Success Response:**
   
   <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
@@ -63,7 +69,7 @@
 
 **KANBAN**
 ----
-  'aplikasi lanban'
+  'aplikasi kanban'
 
 * **URL**
 
@@ -147,6 +153,12 @@
 
   'none'
 
+* **Headers**
+
+  ```json
+  access_token: "string"
+  ```
+
 * **Success Response:**
   
   <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
@@ -210,6 +222,12 @@
     }
   ```
 
+* **Headers**
+
+  ```json
+  access_token: "string"
+  ```
+
 * **Success Response:**
   
   <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
@@ -245,13 +263,13 @@
     **Content:** `{ error : "Access Forbidden" }`
 
 
-**FANCY TODO**
+**KANBAN**
 ----
-  'aplikasi todo'
+  'aplikasi kanban'
 
 * **URL**
 
-  /todos
+  /kanban
 
 * **Method:**
 
@@ -267,6 +285,12 @@
 
   'none'
 
+* **Headers**
+
+  ```json
+  access_token: "string"
+  ```
+
 * **Success Response:**
   
   <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
@@ -276,17 +300,6 @@
     ```json
     {
         "msg": "success delete data",
-        "data": [
-            {
-                "id": "integer",
-                "title": "string",
-                "description": "string",
-                "status": "boolean",
-                "due_date": "timestamp",
-                "createdAt": "timestamp",
-                "updatedAt": "timestamp"
-            }
-        ]
     }
   ```
  
@@ -302,10 +315,15 @@
   * **Code:** 404 DATA_NOT_FOUND <br />
     **Content:** `{ error : "Data not found" }`
 
+  OR
 
-**FANCY TODO**
+  * **Code:** 403 AUTHORIZATION_FAILED <br />
+    **Content:** `{ error : "Access Forbidden" }`
+
+
+**KANBAN**
 ----
-  'aplikasi todo'
+  'aplikasi kanban'
 
 * **URL**
 
@@ -338,7 +356,8 @@
       {
         "msg": "register user success",
         "id": "integer",
-        "email": "integer"
+        "email": "integer",
+        "organization": "string"
       }
   ```
  
@@ -355,9 +374,9 @@
     **Content:** `{ error : "Email is required" }`
 
 
-**FANCY TODO**
+**KANBAN**
 ----
-  'aplikasi todo'
+  'aplikasi kanban'
 
 * **URL**
 
@@ -388,6 +407,8 @@
     **Content:** 
     ```json
       {
+          "message": "string",
+          "email": "string",
           "token": "string"
       }
   ```
@@ -404,55 +425,3 @@
   * **Code:** 400 LOGIN_FAILED <br />
     **Content:** `{ error : "Invalid email or password" }`
 
-
-
-**FANCY TODO**
-----
-  'aplikasi todo'
-
-* **URL**
-
-  /activity
-
-* **Method:**
-
-  `GET`
-  
-*  **URL Params**
-  
-  'none'
-
-* **Data Params**
-
-  'none'
-
-* **Success Response:**
-  
-  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
-
-  * **Code:** 200 <br />
-    **Content:** 
-    ```json
-      {
-          "status": "integer",
-          "statusText": "string",
-          "headers": {
-            "server": "string",
-            "connection": "string",
-            "x-powered-by": "string",
-            "access-control-allow-origin": "string",
-            "access-control-allow-headers": "string",
-            "content-type": "string",
-            "content-length": "integer",
-            "etag": "string",
-            "date": "string",
-            "via": "string"
-      },
-  ```
-  
-* **Error Response:**
-
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
-
-  * **Code:** 500 Internal server error <br />
-    **Content:** `{ error : "Internal server error" }`
