@@ -3,6 +3,8 @@
         <LoginPage
             v-if="pageName === 'login'"
             @login="login"
+            @register="register"
+            @auth="auth"
         ></LoginPage>     
         <HomePage
             v-if="pageName === 'home'"
@@ -72,9 +74,21 @@ export default {
               localStorage.setItem('email', data.email)
               this.changePage('home')
               this.fetchKanban()
-              console.log(this.email)
+              this.$swal({
+                icon: 'success',
+                title: 'Success login',
+                showConfirmButton: false,
+                timer: 1500
+              })
           })
-          .catch(console.log)
+          .catch(err => {
+              console.log(err.response.data.allError[0])
+              this.$swal({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: err.response.data.allError[0]
+              })
+          }) 
       },
       auth() {
           if(localStorage.access_token) {
@@ -96,15 +110,40 @@ export default {
           .catch(console.log)
       },
       deleteData(id) {
-          axios.delete(`/kanban/${id}`, {
-              headers: {
-                  access_token: localStorage.access_token
+          this.$swal({
+            title: 'Are you sure want to delete this task?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+              if(result.isConfirmed) {
+                axios.delete(`/kanban/${id}`, {
+                    headers: {
+                        access_token: localStorage.access_token
+                    }
+                })
+                .then(data => {
+                    this.$swal({
+                        icon: 'success',
+                        title: 'success deleted task',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    this.auth()
+                })
+                .catch(err => {
+                    this.$swal({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: err.response.data.allError[0]
+                    })
+                })
               }
           })
-          .then(data => {
-              this.auth()
-          })
-          .catch(console.log)
+          
       },
       logout() {
           localStorage.clear()
@@ -120,9 +159,21 @@ export default {
               }
           })
           .then(({data}) => {
+              this.$swal({
+                  icon: 'success',
+                  title: 'Your task has been saved',
+                  showConfirmButton: false,
+                  timer: 1500
+              })
               this.fetchKanban()
           })
-          .catch(console.log)
+          .catch(err => {
+              this.$swal({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: err.response.data.allError[0]
+              })
+          })
       },
       updateData(payload) {
           const { title, description, category } = payload
@@ -134,9 +185,43 @@ export default {
               }
           })
           .then(data => {
+              this.$swal({
+                  icon: 'success',
+                  title: 'Success edit task',
+                  showConfirmButton: false,
+                  timer: 1500
+              })
               this.auth()
           })
-          .catch(console.log)
+          .catch(err => {
+              this.$swal({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: err.response.data.allError[0]
+              })
+          })
+      },
+      register(payload) {
+          const {email, password} = payload
+          axios.post('/register', {
+              email, password
+          })
+          .then(({data}) => {
+              this.$swal({
+                icon: 'success',
+                title: 'Success register',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.auth()
+          })
+          .catch(err => {
+              this.$swal({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: err.response.data.allError[0]
+              })
+          })
       }
   },
   created() {

@@ -1,5 +1,4 @@
 <template>
-    <!-- Ini kanban punya backlog -->
     <div class="col-3">
         <div class="row">
             <div class="col-12">
@@ -13,7 +12,7 @@
                     ></ModalAdd>
                 </div>
             </div>
-            <div style="overflow-y: auto; height: 420px;">
+            <div style="overflow-y: auto; height: 440px;">
                 <!-- component task card -->
                 <TaskCard
                     v-for="dataTask in filteredTask"

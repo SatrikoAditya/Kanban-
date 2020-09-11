@@ -3,7 +3,7 @@
         <div class="container mt-4">
             <ul class="nav sticky-top">
                 <li class="nav-item">
-                    <h1>Welcome! {{email}}</h1>
+                    <h1>Welcome to Hacktiv8 Kanban!</h1>
                 <li class="nav navbar-nav ml-auto">
                     <a @click.prevent="logout" class="btn btn-danger" role="button" href="#">Logout</a>
                 </li>

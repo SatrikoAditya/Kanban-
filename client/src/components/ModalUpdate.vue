@@ -72,9 +72,6 @@ export default {
             // Trigger submit handler
             this.handleSubmit()
         },
-        hideModal() {
-            this.$refs['my-modal'].hide()
-        },
         handleSubmit() {
             this.$emit('updateData', {
                 title: this.title,
