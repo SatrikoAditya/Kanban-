@@ -1,4 +1,5 @@
 # Kanban
+Deployment Link: https://kanban-289210.web.app
 
 ## Buatlah aplikasi Kanban menggunakan client-server model dengan spesifikasi sebagai berikut:
 - API Documentation (server) yang meliputi:
